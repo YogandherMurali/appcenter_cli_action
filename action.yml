@@ -1,0 +1,31 @@
+name: 'AppCenter uploader'
+description: 'Uploads to App Center using appcenter cli'
+inputs:
+  user_api_token:
+    description: 'user api token'
+    required: true
+  filePath:
+    description: 'File location'
+    required: true
+  orgName:  # id of input
+    description: 'Name of the organisation'
+    required: true
+  appName: 
+    description: 'Name of the app'
+    required: true
+  groupName: 
+    description: 'Name of the user group'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: echo token ${{ inputs.user_api_token }}.
+      shell: bash
+    - run: ${{ github.action_path }}/appcenter_cli.sh
+      shell: bash
+      args:
+        - ${{ inputs.user_api_token }}
+        - ${{ inputs.filePath }}
+        - ${{ inputs.orgName }}
+        - ${{ inputs.appName }}
+        - ${{ inputs.groupName }}
